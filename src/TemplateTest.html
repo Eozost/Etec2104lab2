@@ -2,13 +2,41 @@
 <html>
 <head>
     <title>Profile page of {{uname}}</title>
+    <style>
+        body {background-color: rgb(155, 118, 118);}
+        h1   {color: rgb(202, 202, 255);}
+        p    {color: rgb(255, 208, 208);}
+        g    {color:rgb(227, 198, 255)}
+        a    {color:rgb(242, 223, 177)}
+
+
+    table {
+        margin-left: auto;
+        margin-right: auto;
+                    }
+
+    td {
+        border: 1px solid black;
+        padding: 0px;
+        text-align:center;
+            }
+        </style>
 </head>
 <body>
-"Real Name: " = {{Realname}}
-<br>
-"Date of Birth: " = {{dateofBirth}}
-<br>
-"Email Adress: " = {{Adress}}
-<br>
+    <table>
+        
+        <tr>
+            <td><img src="{{image}}" alt="profile image" width = "400" height="400"></td>
+        </tr>
+        <tr>
+            <td><g>Real Name: {{Realname}}</g></td>
+        </tr>
+        <tr>
+            <td><p>Date of Birth: {{dateofBirth}}</p></td>
+        </tr>
+        <tr>
+            <td><a>Email Address: {{Adress}}</a></td>
+        </tr>
+    </table>
 </body>
 </html>
