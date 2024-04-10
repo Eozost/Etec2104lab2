@@ -1,61 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        .noir {
-            background-color: black;
-            color: white;
-        }
-        .impair {
-            background-color: yellow;
-        }
-        .rouge {
-            background-color: maroon;
-            color: white;
-        }
-        .manque {
-            background-color: darkolivegreen;
-            color: white;
-        }
-        .passe {
-            background-color: blueviolet;
-            color: white;
-        }
-        .pair {
-            background-color: teal;
-            color: white;
-        }
-
-        table {
-        margin-left: auto;
-        margin-right: auto;
-                    }
-        .center-div {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-    </style>
 </head>
 <body>
 
-
-
-<div class="center-div">
-    <button onclick="spinRoulette()">Spin!</button>
-    
-
-<table id="results" border="1">
-    <tr>
-        <th>Number</th>
-        <th>Color</th>
-        <th>Parity</th>
-        <th>Pass/Fail</th>
-    </tr>
-</table>
-</div>
 <script src="/static/roulette.js"></script>
+
+<body onload="spinRoulette()"></body>
 
 </body>
 </html>
