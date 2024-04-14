@@ -4,29 +4,24 @@
     <title>Profile page of {{uname}}</title>
     <style>
         body {background-color: rgb(155, 118, 118);}
-        h1   {color: rgb(202, 202, 255);}
-        p    {color: rgb(255, 208, 208);}
-        g    {color:rgb(227, 198, 255)}
-        a    {color:rgb(242, 223, 177)}
 
 
-    table {
-        margin-left: auto;
-        margin-right: auto;
-                    }
+        table {
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-    td {
-        border: 1px solid black;
-        padding: 0px;
-        text-align:center;
-            }
-        </style>
+         td {
+            border: 1px solid black;
+            padding: 0px;
+            text-align:center;
+        }
+    </style>
 </head>
 <body>
     <table>
-        
         <tr>
-            <td><img src="{{image}}" alt="profile image" width = "400" height="400"></td>
+            <td><img id="profileImage" src="{{image}}" alt="profile image" width = "400" height="400"></td>
         </tr>
         <tr>
             <td><g>Real Name: {{Realname}}</g></td>
@@ -38,5 +33,19 @@
             <td><a>Email Address: {{Adress}}</a></td>
         </tr>
     </table>
+
+    <form action="/updateprofile" method="post">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" value="{{Realname}}"><br>
+        <label for="dob">Date of Birth:</label><br>
+        <input type="text" id="birthdate" name="dob" value="{{dateofBirth}}"><br>
+        <label for="Email">Email:</label><br>
+        <input type="text" id="email" name="email" value="{{Adress}}"><br>
+        <label for="image">Profile Image:</label><br>
+        <input type="file" id="ppic" name="image" accept="image/*"><br>
+        <input type="submit" value="Update Profile">
+    </form>
+
+    <script src="/static/updateprofile.js"></script>
 </body>
 </html>

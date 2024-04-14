@@ -3,6 +3,7 @@ import os, os.path
 import tornado.web
 import index,Profile       
 import roulette
+import updateprofile
 
 HTMLDIR = os.path.abspath(
     os.path.join(
@@ -15,7 +16,7 @@ def makeApp():
     endpoints=[
         ("/",index.Handler),
         ("/profile/.*",Profile.profileHandler),
-        ("/roulette",roulette.Handler)
+        ("/roulette",roulette.Handler),
     ]
     app = tornado.web.Application(
         endpoints,
