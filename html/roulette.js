@@ -34,9 +34,14 @@ function spinRoulette() {
         failedPassed = parseInt(spin) <= 18 ? "Manque" : "Passe";
     }
     
-    // Print the results to the console
-    console.log("The number: " + spin);
-    console.log("Rouge/Noir: " + color);
-    console.log("Pair/Impair: " + evenOdd);
-    console.log("Manque/Passe: " + failedPassed);
+    // Create a results row
+    var resultsRow = "<tr>" +
+                     "<td>" + spin + "</td>" +
+                     "<td class='" + color.toLowerCase() + "'>" + color + "</td>" +
+                     "<td class='" + evenOdd.toLowerCase() + "'>" + evenOdd + "</td>" +
+                     "<td class ='" + failedPassed.toLocaleLowerCase() + "'>" + failedPassed + "</td>"
+                     "</tr>";
+    
+    // Add the results row to the table
+    document.getElementById("results").innerHTML += resultsRow;
 }
