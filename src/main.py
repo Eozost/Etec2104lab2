@@ -1,9 +1,7 @@
 import asyncio
-import os, os.path
 import tornado.web
-import index,Profile       
+import os.path 
 import roulette
-import updateprofile
 
 HTMLDIR = os.path.abspath(
     os.path.join(
@@ -12,14 +10,17 @@ HTMLDIR = os.path.abspath(
     )
 )
 
+class IndexPage(tornado.web.RequestHandler):
+    def get(self):
+        self.write("<a href='/static/roulette.html'>VIsit the casino</a>")
+
+
 def makeApp():
-    endpoints=[
-        ("/",index.Handler),
-        ("/profile/.*",Profile.profileHandler),
-        ("/roulette",roulette.Handler),
+    endpoints = [
+        ("/", IndexPage),
+        ("/roulette", roulette.Handler )
     ]
-    app = tornado.web.Application(
-        endpoints,
+    app = tornado.web.Application(endpoints,  
         static_path=HTMLDIR
     )
     app.listen(8000)
@@ -28,4 +29,3 @@ def makeApp():
 if __name__ == "__main__":
     app = makeApp()
     asyncio.get_event_loop().run_forever()
-    

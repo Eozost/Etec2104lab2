@@ -1,5 +1,21 @@
 var wheel = ["00"].concat(Array.from({length: 36}, (_, i) => i.toString()));
 
+var socket = new WebSocket("ws://localhost:8000/roulette");
+
+socket.onmessage = function(event) {
+  var data = JSON.parse(event.data);
+  document.getElementById("results").innerHTML += data.resultsRow;
+};
+
+socket.onopen = function(event) {
+    console.log('Connected to server');
+};
+
+socket.onerror = function(error) {
+    console.error('WebSocket Error: ', error);
+};
+
+
 function spinRoulette() {
     // Spin the wheel
     var spin = wheel[Math.floor(Math.random() * wheel.length)];
@@ -41,7 +57,8 @@ function spinRoulette() {
                      "<td class='" + evenOdd.toLowerCase() + "'>" + evenOdd + "</td>" +
                      "<td class ='" + failedPassed.toLocaleLowerCase() + "'>" + failedPassed + "</td>"
                      "</tr>";
-    
     // Add the results row to the table
     document.getElementById("results").innerHTML += resultsRow;
+
+    socket.send(JSON.stringify({ resultsRow: resultsRow }));
 }
