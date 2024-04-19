@@ -1,20 +1,6 @@
 var wheel = ["00"].concat(Array.from({length: 36}, (_, i) => i.toString()));
 
-var socket = new WebSocket("ws://localhost:8000/roulette");
-
-socket.onmessage = function(event) {
-  var data = JSON.parse(event.data);
-  document.getElementById("results").innerHTML += data.resultsRow;
-};
-
-socket.onopen = function(event) {
-    console.log('Connected to server');
-};
-
-socket.onerror = function(error) {
-    console.error('WebSocket Error: ', error);
-};
-
+let sock; 
 
 function spinRoulette() {
     // Spin the wheel
@@ -51,14 +37,43 @@ function spinRoulette() {
     }
     
     // Create a results row
-    var resultsRow = "<tr>" +
+   /* var resultsRow = "<tr>" +
                      "<td>" + spin + "</td>" +
                      "<td class='" + color.toLowerCase() + "'>" + color + "</td>" +
                      "<td class='" + evenOdd.toLowerCase() + "'>" + evenOdd + "</td>" +
                      "<td class ='" + failedPassed.toLocaleLowerCase() + "'>" + failedPassed + "</td>"
                      "</tr>";
+    
+    // Add the results row to the table
+    document.getElementById("results").innerHTML += resultsRow; */
+
+    // Send the results to the server
+    sock.send(JSON.stringify({spin: spin, color: color, evenOdd: evenOdd, failedPassed: failedPassed}));
+}
+
+// Connect to the server
+sock = new WebSocket("ws://"+document.location.host+"/roulette");
+
+sock.addEventListener("open", () => {
+    console.log("Connected to the server");
+});
+
+sock.addEventListener("message", (ev) => {
+    // Parse the received data
+    let data = JSON.parse(ev.data);
+
+    // Create a results row
+    var resultsRow = "<tr>" +
+                     "<td>" + data.spin + "</td>" +
+                     "<td class='" + data.color.toLowerCase() + "'>" + data.color + "</td>" +
+                     "<td class='" + data.evenOdd.toLowerCase() + "'>" + data.evenOdd + "</td>" +
+                     "<td class ='" + data.failedPassed.toLocaleLowerCase() + "'>" + data.failedPassed + "</td>"
+                     "</tr>";
+    
     // Add the results row to the table
     document.getElementById("results").innerHTML += resultsRow;
+});
 
-    socket.send(JSON.stringify({ resultsRow: resultsRow }));
-}
+sock.addEventListener("close", () => {
+    console.log("Disconnected from the server");
+});
